@@ -5,7 +5,6 @@ import json
 import random
 import time
 from datetime import datetime
-import urllib.parse
 
 app = Flask(__name__)
 
@@ -25,19 +24,11 @@ keep_alive()
 BOT_TOKEN = "8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA"
 CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
-EARNKARO_ID = "4531622"  # ✅ Your real EarnKaro ID
 
 bot = telebot.TeleBot(BOT_TOKEN)
 is_paused = False
 last_post_time = None
 posted_indexes = set()
-
-# ✅ Link converter function
-def convert_to_ek_link(original_url):
-    if original_url.startswith("https://fktr.in") or original_url.startswith("https://ekaro.in"):
-        return original_url  # Already shortened
-    encoded = urllib.parse.quote(original_url)
-    return f"https://ekaro.in/en?k={EARNKARO_ID}&url={encoded}"
 
 def load_deals():
     with open("deals.json", "r", encoding="utf-8") as f:
@@ -51,11 +42,7 @@ def post_deal():
     index = random.choice([i for i in range(len(deals)) if i not in posted_indexes])
     posted_indexes.add(index)
     deal = deals[index]
-
-    # 🔁 Convert ek_link if it's a raw Flipkart/Ajio link
-    safe_link = convert_to_ek_link(deal['ek_link'])
-
-    caption = f"{deal['title']}\n\n🛍️ Tap here: {safe_link}\n\n#StyleHubIND #FlipkartFashion"
+    caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #FlipkartFashion"
     try:
         bot.send_message(CHANNEL_ID, caption)
         last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
