@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 from threading import Thread
 import telebot
 import json
 import random
 import time
 from datetime import datetime
+import urllib.parse
 
 app = Flask(__name__)
 
@@ -25,11 +26,27 @@ BOT_TOKEN = "8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA"
 CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
 
+WEBHOOK_URL = "https://stylehub-bot-final.onrender.com"  # ✅ Replace if your URL changes
+
 bot = telebot.TeleBot(BOT_TOKEN)
-print("Bot instance created successfully ✅")
+print("✅ Bot instance created")
+
 is_paused = False
 last_post_time = None
 posted_indexes = set()
+
+# === Set webhook ===
+bot.remove_webhook()
+time.sleep(1)
+bot.set_webhook(url=WEBHOOK_URL + "/" + BOT_TOKEN)
+
+# === Receive Telegram Updates via POST ===
+@app.route(f"/{BOT_TOKEN}", methods=["POST"])
+def receive_update():
+    json_str = request.get_data().decode("utf-8")
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return "ok", 200
 
 def load_deals():
     with open("deals.json", "r", encoding="utf-8") as f:
@@ -82,15 +99,4 @@ def nextdeal(message):
         post_deal()
         bot.reply_to(message, "✅ Deal posted to channel.")
 
-print("🚀 Bot started and running...")
-while True:
-    try:
-        bot.polling(non_stop=True)
-        if not is_paused:
-            post_deal()
-            time.sleep(10)
-        else:
-            time.sleep(60)
-    except Exception as e:
-        print(f"⚠️ Main loop error: {e}")
-        time.sleep(30)
+print("🚀 Bot started with webhook...")
