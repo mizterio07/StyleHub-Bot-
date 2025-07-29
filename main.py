@@ -29,7 +29,9 @@ WEBHOOK_URL = "https://stylehub-bot-final.onrender.com"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 print("✅ Bot instance created")
-
+bot.remove_webhook()
+time.sleep(1)
+bot.set_webhook(url="https://stylehub-bot-final.onrender.com/" + BOT_TOKEN)
 is_paused = False
 last_post_time = None
 posted_indexes = set()
