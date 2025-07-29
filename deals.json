@@ -1,26 +1,122 @@
 [
-  {"title": "🔥 Women Printed Pure Cotton Straight Kurta  (Purple)Special price ₹358₹ 48% off", "ek_link": "https://fktr.in/OsGMTCY"},
-  {"title": "👗 JFAB Women Printed Pure Cotton Straight Kurta  (Red) ₹348 50% off", "ek_link": "https://fktr.in/Hdghrkh"},
-  {"title": "🌸 YASHIKA Printed Kanjivaram Silk Blend Saree  (Pink)Special price₹448", "ek_link": "https://fktr.in/Q4qtuF4"},
-  {"title": "💃KAKADIYA CREATION Embellished Bollywood Chiffon Saree  (Dark Blue) ₹336", "ek_link": "https://fktr.in/Cd8uX5k"},
-  {"title": "🌟ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Blue)Special price ₹483", "ek_link": "https://fktr.in/wqciDtt"},
-  {"title": "🌼 ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Maroon)Special price ₹483", "ek_link": "https://fktr.in/EnJFR0m"},
-  {"title": "✨ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Green)Special price ₹483", "ek_link": "https://fktr.in/HoNoo3R"},
-  {"title": "👚Tabeedah Women Self Design Cotton Blend Pakistani Kurta  (Pink) Special price ₹336", "ek_link": "https://fktr.in/s6kvuf7"},
-  {"title": "🌿Tabeedah Women Self Design Cotton Blend Pakistani Kurta  (Yellow)Special price₹336 74% off", "ek_link": "https://fktr.in/cnWEis8"},
-  {"title": "💎PYARELAL Women Floral Print Viscose Rayon A-line Kurta  (Blue)Special price₹281 85% off", "ek_link": "https://fktr.in/pqHpibJ"},
-  {"title": "🌹 FABZARI Women Printed Viscose Rayon Straight Kurta  (Black)Special price₹319 75% off", "ek_link": "https://fktr.in/S1JFVCa"},
-  {"title": "🌈Dressar Women Floral Print Viscose Rayon Straight Kurta  (Maroon)Special price ₹299 85% off", "ek_link": "https://fktr.in/7SsL0qz"},
-  {"title": "💐fastal look Women Cotton Rayon Kurta Ethnic Jacket SetSpecial price₹793 69% off", "ek_link": "https://fktr.in/dRJ58pk"},
-  {"title": "😎Niona Women Viscose Rayon Kurta Ethnic Jacket SetSpecial price ₹448 76% off", "ek_link": "https://fktr.in/0nw00Fg"},
-  {"title": "🧵TFP Women Viscose Rayon Kurta Pant Ethnic Jacket SetSpecial price₹748 75% off", "ek_link": "https://fktr.in/DqtCAMh"},
-  {"title": "🎀Shedika Women Printed Viscose Rayon Straight Kurta  (Beige) ₹411 77% off", "ek_link": "https://fktr.in/rle5eF0"},
-  {"title": "🍂InWeave Women Viscose Rayon Kurta Ethnic Jacket SetSpecial price ₹869 75% off", "ek_link": "https://fktr.in/Ax2fDKr"},
-  {"title": "🥿 Bambam Women Flats Sandal  (Green , 3)Special price ₹283 59% off", "ek_link": "https://fktr.in/E8ylVgd"},
-  {"title": "🩳 Kajmi Women Heels Sandal  (White , 7)Special price ₹410 58% off", "ek_link": "https://fktr.in/zsD4xSk"},
-  {"title": "🔲 Froh Feet Women Heels Sandal  (Grey , 5)Special price₹497 75% off", "ek_link": "https://fktr.in/9nV7B89"},
-  {"title": "👜TRASE Women Wedges Sandal  (Brown , 5)Special price ₹495₹ 64% off", "ek_link": "https://fktr.in/42ByWix"},
-  {"title": "🌻SV SUVEENA Women Fit and Flare Maroon Midi/Calf Length DressSpecial price ₹469 81% off", "ek_link": "https://fktr.in/pO644Id"},
-  {"title": "👜LIKE STYLE Women Green Shoulder BagSpecial price ₹386", "ek_link": "https://fktr.in/blOX5Tn"},
-  {"title": "Exotic Women Multicolor Hand-held BagSpecial price ₹398 57% off", "ek_link": "https://fktr.in/35aYddF"}
+  {
+    "title": "🔥 Women Printed Pure Cotton Straight Kurta  (Purple)Special price ₹358₹ 48% off",
+    "ek_link": "https://fktr.in/OsGMTCY",
+    "image": "https://example.com/product1.jpg"
+  },
+  {
+    "title": "👗 JFAB Women Printed Pure Cotton Straight Kurta  (Red) ₹348 50% off",
+    "ek_link": "https://fktr.in/Hdghrkh",
+    "image": "https://example.com/product2.jpg"
+  },
+  {
+    "title": "🌸 YASHIKA Printed Kanjivaram Silk Blend Saree  (Pink)Special price₹448",
+    "ek_link": "https://fktr.in/Q4qtuF4",
+    "image": "https://example.com/product3.jpg"
+  },
+  {
+    "title": "💃KAKADIYA CREATION Embellished Bollywood Chiffon Saree  (Dark Blue) ₹336",
+    "ek_link": "https://fktr.in/Cd8uX5k",
+    "image": "https://example.com/product4.jpg"
+  },
+  {
+    "title": "🌟ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Blue)Special price ₹483",
+    "ek_link": "https://fktr.in/wqciDtt",
+    "image": "https://example.com/product5.jpg"
+  },
+  {
+    "title": "🌼 ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Maroon)Special price ₹483",
+    "ek_link": "https://fktr.in/EnJFR0m",
+    "image": "https://example.com/product6.jpg"
+  },
+  {
+    "title": "✨ZILVIRA Woven Kanjivaram Jacquard, Art Silk Saree  (Green)Special price ₹483",
+    "ek_link": "https://fktr.in/HoNoo3R",
+    "image": "https://example.com/product7.jpg"
+  },
+  {
+    "title": "👚Tabeedah Women Self Design Cotton Blend Pakistani Kurta  (Pink) Special price ₹336",
+    "ek_link": "https://fktr.in/s6kvuf7",
+    "image": "https://example.com/product8.jpg"
+  },
+  {
+    "title": "🌿Tabeedah Women Self Design Cotton Blend Pakistani Kurta  (Yellow)Special price₹336 74% off",
+    "ek_link": "https://fktr.in/cnWEis8",
+    "image": "https://example.com/product9.jpg"
+  },
+  {
+    "title": "💎PYARELAL Women Floral Print Viscose Rayon A-line Kurta  (Blue)Special price₹281 85% off",
+    "ek_link": "https://fktr.in/pqHpibJ",
+    "image": "https://example.com/product10.jpg"
+  },
+  {
+    "title": "🌹 FABZARI Women Printed Viscose Rayon Straight Kurta  (Black)Special price₹319 75% off",
+    "ek_link": "https://fktr.in/S1JFVCa",
+    "image": "https://example.com/product11.jpg"
+  },
+  {
+    "title": "🌈Dressar Women Floral Print Viscose Rayon Straight Kurta  (Maroon)Special price ₹299 85% off",
+    "ek_link": "https://fktr.in/7SsL0qz",
+    "image": "https://example.com/product12.jpg"
+  },
+  {
+    "title": "💐fastal look Women Cotton Rayon Kurta Ethnic Jacket SetSpecial price₹793 69% off",
+    "ek_link": "https://fktr.in/dRJ58pk",
+    "image": "https://example.com/product13.jpg"
+  },
+  {
+    "title": "😎Niona Women Viscose Rayon Kurta Ethnic Jacket SetSpecial price ₹448 76% off",
+    "ek_link": "https://fktr.in/0nw00Fg",
+    "image": "https://example.com/product14.jpg"
+  },
+  {
+    "title": "🧵TFP Women Viscose Rayon Kurta Pant Ethnic Jacket SetSpecial price₹748 75% off",
+    "ek_link": "https://fktr.in/DqtCAMh",
+    "image": "https://example.com/product15.jpg"
+  },
+  {
+    "title": "🎀Shedika Women Printed Viscose Rayon Straight Kurta  (Beige) ₹411 77% off",
+    "ek_link": "https://fktr.in/rle5eF0",
+    "image": "https://example.com/product16.jpg"
+  },
+  {
+    "title": "🍂InWeave Women Viscose Rayon Kurta Ethnic Jacket SetSpecial price ₹869 75% off",
+    "ek_link": "https://fktr.in/Ax2fDKr",
+    "image": "https://example.com/product17.jpg"
+  },
+  {
+    "title": "🥿 Bambam Women Flats Sandal  (Green , 3)Special price ₹283 59% off",
+    "ek_link": "https://fktr.in/E8ylVgd",
+    "image": "https://example.com/product18.jpg"
+  },
+  {
+    "title": "🩳 Kajmi Women Heels Sandal  (White , 7)Special price ₹410 58% off",
+    "ek_link": "https://fktr.in/zsD4xSk",
+    "image": "https://example.com/product19.jpg"
+  },
+  {
+    "title": "🔲 Froh Feet Women Heels Sandal  (Grey , 5)Special price₹497 75% off",
+    "ek_link": "https://fktr.in/9nV7B89",
+    "image": "https://example.com/product20.jpg"
+  },
+  {
+    "title": "👜TRASE Women Wedges Sandal  (Brown , 5)Special price ₹495₹ 64% off",
+    "ek_link": "https://fktr.in/42ByWix",
+    "image": "https://example.com/product21.jpg"
+  },
+  {
+    "title": "🌻SV SUVEENA Women Fit and Flare Maroon Midi/Calf Length DressSpecial price ₹469 81% off",
+    "ek_link": "https://fktr.in/pO644Id",
+    "image": "https://example.com/product22.jpg"
+  },
+  {
+    "title": "👜LIKE STYLE Women Green Shoulder BagSpecial price ₹386",
+    "ek_link": "https://fktr.in/blOX5Tn",
+    "image": "https://example.com/product23.jpg"
+  },
+  {
+    "title": "Exotic Women Multicolor Hand-held BagSpecial price ₹398 57% off",
+    "ek_link": "https://fktr.in/35aYddF",
+    "image": "https://example.com/product24.jpg"
+  }
 ]
