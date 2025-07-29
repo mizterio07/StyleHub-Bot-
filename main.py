@@ -26,6 +26,7 @@ CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
 
 bot = telebot.TeleBot(BOT_TOKEN)
+print("Bot instance created successfully ✅")
 is_paused = False
 last_post_time = None
 posted_indexes = set()
