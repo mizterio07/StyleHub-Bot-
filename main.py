@@ -25,8 +25,7 @@ keep_alive()
 BOT_TOKEN = "8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA"
 CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
-
-WEBHOOK_URL = "https://stylehub-bot-final.onrender.com"  # ✅ Replace if your URL changes
+WEBHOOK_URL = "https://stylehub-bot-final.onrender.com"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 print("✅ Bot instance created")
@@ -57,14 +56,27 @@ def post_deal():
     deals = load_deals()
     if len(posted_indexes) == len(deals):
         posted_indexes.clear()
+
     index = random.choice([i for i in range(len(deals)) if i not in posted_indexes])
     posted_indexes.add(index)
     deal = deals[index]
+
     caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #FlipkartFashion"
+    image_url = deal.get("image")
+
+    if image_url:
+        try:
+            bot.send_photo(CHANNEL_ID, image_url, caption=caption)
+            last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
+            print(f"✅ Posted with image: {deal['title']}")
+            return
+        except Exception as e:
+            print(f"⚠️ Image failed, fallback to text: {e}")
+
     try:
         bot.send_message(CHANNEL_ID, caption)
         last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
-        print(f"✅ Posted: {deal['title']}")
+        print(f"✅ Posted without image: {deal['title']}")
     except Exception as e:
         print(f"❌ Telegram error: {e}")
 
