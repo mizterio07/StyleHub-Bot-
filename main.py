@@ -87,7 +87,7 @@ while True:
         bot.polling(non_stop=True)
         if not is_paused:
             post_deal()
-            time.sleep(3600)
+            time.sleep(10)
         else:
             time.sleep(60)
     except Exception as e:
