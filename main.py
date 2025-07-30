@@ -5,6 +5,10 @@ import json
 import random
 import time
 from datetime import datetime
+import logging
+
+# === LOGGING SETUP ===
+logging.basicConfig(filename='bot.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # === FLASK SETUP ===
 app = Flask(__name__)
@@ -37,12 +41,12 @@ ADMIN_ID = 1427409581
 bot = telebot.TeleBot(BOT_TOKEN)
 print("✅ Bot created successfully")
 
-# === Set webhook (HARDCODED)
+# === Set webhook
 bot.remove_webhook()
 time.sleep(1)
 bot.set_webhook(url="https://stylehub-bot-final.onrender.com/8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA")
 
-# === LOGIC ===
+# === DEAL POSTING ===
 is_paused = False
 last_post_time = None
 posted_indexes = set()
@@ -68,9 +72,12 @@ def post_deal():
             bot.send_message(CHANNEL_ID, caption)
         last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
         print(f"✅ Posted: {deal['title']}")
+        logging.info(f"✅ Posted: {deal['title']}")
     except Exception as e:
         print(f"❌ Telegram error: {e}")
+        logging.error(f"❌ Telegram error: {e}")
 
+# === ADMIN COMMANDS ===
 @bot.message_handler(commands=['start'])
 def start(message):
     if message.from_user.id == ADMIN_ID:
@@ -102,4 +109,4 @@ def nextdeal(message):
         post_deal()
         bot.reply_to(message, "✅ Deal posted to channel.")
 
-print("🚀 Bot started with webhook")
+print("🚀 Bot started with webhook and logging")
