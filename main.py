@@ -46,36 +46,46 @@ bot.remove_webhook()
 time.sleep(1)
 bot.set_webhook(url="https://stylehub-bot-final.onrender.com/8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA")
 
-# === DEAL POSTING ===
+# === DEAL POSTING SETUP ===
 is_paused = False
 last_post_time = None
-posted_indexes = set()
+posted_indexes_flipkart = set()
+posted_indexes_ajio = set()
+is_flipkart = True  # Toggle switch
 
-def load_deals():
-    with open("deals.json", "r", encoding="utf-8") as f:
+def load_deals(source):
+    file = "deals.json" if source == "flipkart" else "ajio_deals.json"
+    with open(file, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def post_deal():
-    global last_post_time
-    deals = load_deals()
+    global last_post_time, is_flipkart
+
+    source = "flipkart" if is_flipkart else "ajio"
+    deals = load_deals(source)
+    posted_indexes = posted_indexes_flipkart if is_flipkart else posted_indexes_ajio
+
     if len(posted_indexes) == len(deals):
         posted_indexes.clear()
+
     index = random.choice([i for i in range(len(deals)) if i not in posted_indexes])
     posted_indexes.add(index)
     deal = deals[index]
 
-    caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #FlipkartFashion"
+    caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #{source.capitalize()}Fashion"
     try:
         if 'image' in deal:
             bot.send_photo(CHANNEL_ID, photo=deal['image'], caption=caption)
         else:
             bot.send_message(CHANNEL_ID, caption)
         last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
-        print(f"✅ Posted: {deal['title']}")
-        logging.info(f"✅ Posted: {deal['title']}")
+        print(f"✅ Posted from {source.capitalize()}: {deal['title']}")
+        logging.info(f"✅ Posted from {source.capitalize()}: {deal['title']}")
     except Exception as e:
         print(f"❌ Telegram error: {e}")
         logging.error(f"❌ Telegram error: {e}")
+
+    is_flipkart = not is_flipkart  # Toggle source for next post
 
 # === ADMIN COMMANDS ===
 @bot.message_handler(commands=['start'])
@@ -109,4 +119,4 @@ def nextdeal(message):
         post_deal()
         bot.reply_to(message, "✅ Deal posted to channel.")
 
-print("🚀 Bot started with webhook and logging")
+print("🚀 Bot started with Flipkart & Ajio alternating support")
