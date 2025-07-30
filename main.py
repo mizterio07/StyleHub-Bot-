@@ -58,12 +58,16 @@ def load_deals(source):
     with open(file, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def post_deal():
+def post_deal(source_toggle=None):
     global last_post_time, is_flipkart
 
-    source = "flipkart" if is_flipkart else "ajio"
+    if source_toggle:
+        source = source_toggle
+    else:
+        source = "flipkart" if is_flipkart else "ajio"
+
     deals = load_deals(source)
-    posted_indexes = posted_indexes_flipkart if is_flipkart else posted_indexes_ajio
+    posted_indexes = posted_indexes_flipkart if source == "flipkart" else posted_indexes_ajio
 
     if len(posted_indexes) == len(deals):
         posted_indexes.clear()
@@ -85,13 +89,14 @@ def post_deal():
         print(f"❌ Telegram error: {e}")
         logging.error(f"❌ Telegram error: {e}")
 
-    is_flipkart = not is_flipkart  # Toggle source for next post
+    if not source_toggle:
+        is_flipkart = not is_flipkart  # Toggle source for next post
 
 # === ADMIN COMMANDS ===
 @bot.message_handler(commands=['start'])
 def start(message):
     if message.from_user.id == ADMIN_ID:
-        bot.reply_to(message, "👋 Bot is live! Use /pause /resume /status /nextdeal")
+        bot.reply_to(message, "👋 Bot is live! Use /pause /resume /status /nextdeal /postflipkart /postajio")
 
 @bot.message_handler(commands=['pause'])
 def pause(message):
@@ -119,4 +124,16 @@ def nextdeal(message):
         post_deal()
         bot.reply_to(message, "✅ Deal posted to channel.")
 
-print("🚀 Bot started with Flipkart & Ajio alternating support")
+@bot.message_handler(commands=['postflipkart'])
+def post_flipkart(message):
+    if message.from_user.id == ADMIN_ID:
+        post_deal("flipkart")
+        bot.reply_to(message, "✅ Flipkart deal posted.")
+
+@bot.message_handler(commands=['postajio'])
+def post_ajio(message):
+    if message.from_user.id == ADMIN_ID:
+        post_deal("ajio")
+        bot.reply_to(message, "✅ Ajio deal posted.")
+
+print("🚀 Bot started with Flipkart & Ajio alternating support + manual commands")
