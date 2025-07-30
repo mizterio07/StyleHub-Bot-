@@ -5,13 +5,20 @@ import json
 import random
 import time
 from datetime import datetime
-import urllib.parse
 
+# === FLASK SETUP ===
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is alive!", 200
+
+@app.route(f"/8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA", methods=["POST"])
+def webhook():
+    json_str = request.get_data().decode("utf-8")
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return "ok", 200
 
 def run():
     app.run(host='0.0.0.0', port=10000)
@@ -22,32 +29,23 @@ def keep_alive():
 
 keep_alive()
 
+# === BOT SETUP ===
 BOT_TOKEN = "8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA"
 CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
-WEBHOOK_URL = "https://stylehub-bot-final.onrender.com"
 
 bot = telebot.TeleBot(BOT_TOKEN)
-print("✅ Bot instance created")
+print("✅ Bot created successfully")
+
+# === Set webhook (HARDCODED)
 bot.remove_webhook()
 time.sleep(1)
 bot.set_webhook(url="https://stylehub-bot-final.onrender.com/8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA")
+
+# === LOGIC ===
 is_paused = False
 last_post_time = None
 posted_indexes = set()
-
-# === Set webhook ===
-bot.remove_webhook()
-time.sleep(1)
-bot.set_webhook(url=WEBHOOK_URL + "/" + BOT_TOKEN)
-
-# === Receive Telegram Updates via POST ===
-@app.route(f"/{BOT_TOKEN}", methods=["POST"])
-def receive_update():
-    json_str = request.get_data().decode("utf-8")
-    update = telebot.types.Update.de_json(json_str)
-    bot.process_new_updates([update])
-    return "ok", 200
 
 def load_deals():
     with open("deals.json", "r", encoding="utf-8") as f:
@@ -58,27 +56,18 @@ def post_deal():
     deals = load_deals()
     if len(posted_indexes) == len(deals):
         posted_indexes.clear()
-
     index = random.choice([i for i in range(len(deals)) if i not in posted_indexes])
     posted_indexes.add(index)
     deal = deals[index]
 
     caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #FlipkartFashion"
-    image_url = deal.get("image")
-
-    if image_url:
-        try:
-            bot.send_photo(CHANNEL_ID, image_url, caption=caption)
-            last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
-            print(f"✅ Posted with image: {deal['title']}")
-            return
-        except Exception as e:
-            print(f"⚠️ Image failed, fallback to text: {e}")
-
     try:
-        bot.send_message(CHANNEL_ID, caption)
+        if 'image' in deal:
+            bot.send_photo(CHANNEL_ID, photo=deal['image'], caption=caption)
+        else:
+            bot.send_message(CHANNEL_ID, caption)
         last_post_time = datetime.now().strftime("%d %b %Y %I:%M %p")
-        print(f"✅ Posted without image: {deal['title']}")
+        print(f"✅ Posted: {deal['title']}")
     except Exception as e:
         print(f"❌ Telegram error: {e}")
 
@@ -113,4 +102,4 @@ def nextdeal(message):
         post_deal()
         bot.reply_to(message, "✅ Deal posted to channel.")
 
-print("🚀 Bot started with webhook...")
+print("🚀 Bot started with webhook")
