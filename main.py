@@ -41,26 +41,28 @@ ADMIN_ID = 1427409581
 bot = telebot.TeleBot(BOT_TOKEN)
 print("✅ Bot created successfully")
 
-# === Set webhook
+# === Set webhook (if using Render or similar)
 bot.remove_webhook()
 time.sleep(1)
 bot.set_webhook(url="https://stylehub-bot-final.onrender.com/8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA")
 
-# === DEAL POSTING SETUP ===
+# === POSTING STATE ===
 is_paused = False
 last_post_time = None
 posted_indexes_flipkart = set()
 posted_indexes_ajio = set()
-is_flipkart = True  # Toggle switch
+is_flipkart = True  # Flip between sources
 
+# === DEAL POSTING FUNCTION ===
 def load_deals(source):
     file = "deals.json" if source == "flipkart" else "ajio_deals.json"
     with open(file, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def post_deal(source_toggle=None):
-    global last_post_time, is_flipkart
+    global last_post_time, is_flipkart, posted_indexes_flipkart, posted_indexes_ajio
 
+    # Decide source
     if source_toggle:
         source = source_toggle
     else:
@@ -69,14 +71,28 @@ def post_deal(source_toggle=None):
     deals = load_deals(source)
     posted_indexes = posted_indexes_flipkart if source == "flipkart" else posted_indexes_ajio
 
-    if len(posted_indexes) == len(deals):
+    if len(posted_indexes) >= len(deals):
+        print(f"🔁 All {source} deals posted once. Resetting cycle.")
         posted_indexes.clear()
 
-    index = random.choice([i for i in range(len(deals)) if i not in posted_indexes])
+    available_indexes = [i for i in range(len(deals)) if i not in posted_indexes]
+
+    if not available_indexes:
+        print(f"⚠️ No available {source} deals.")
+        return
+
+    index = random.choice(available_indexes)
     posted_indexes.add(index)
+
+    if source == "flipkart":
+        posted_indexes_flipkart = posted_indexes
+    else:
+        posted_indexes_ajio = posted_indexes
+
     deal = deals[index]
 
     caption = f"{deal['title']}\n\n🛍️ Tap here: {deal['ek_link']}\n\n#StyleHubIND #{source.capitalize()}Fashion"
+
     try:
         if 'image' in deal:
             bot.send_photo(CHANNEL_ID, photo=deal['image'], caption=caption)
@@ -89,10 +105,11 @@ def post_deal(source_toggle=None):
         print(f"❌ Telegram error: {e}")
         logging.error(f"❌ Telegram error: {e}")
 
+    # Toggle to next source only if not manually triggered
     if not source_toggle:
-        is_flipkart = not is_flipkart  # Toggle source for next post
+        is_flipkart = not is_flipkart
 
-# === ADMIN COMMANDS ===
+# === TELEGRAM COMMANDS ===
 @bot.message_handler(commands=['start'])
 def start(message):
     if message.from_user.id == ADMIN_ID:
@@ -136,4 +153,18 @@ def post_ajio(message):
         post_deal("ajio")
         bot.reply_to(message, "✅ Ajio deal posted.")
 
-print("🚀 Bot started with Flipkart & Ajio alternating support + manual commands")
+# === MAIN LOOP FOR SCHEDULING ===
+print("🚀 Bot started with Flipkart & Ajio alternating + manual commands")
+
+while True:
+    try:
+        bot.polling(non_stop=True)
+
+        if not is_paused:
+            post_deal()
+            time.sleep(3600)  # 1 hour
+        else:
+            time.sleep(60)    # Check every minute
+    except Exception as e:
+        print(f"⚠️ Main loop error: {e}")
+        time.sleep(30)
