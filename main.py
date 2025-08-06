@@ -8,7 +8,7 @@ from datetime import datetime
 import logging
 
 # === CONFIG ===
-BOT_TOKEN = "8043781739:AAEls8RRLsHiqHTr6EWU6ZYR_5_eogLTtuA"
+BOT_TOKEN = "8043781739:AAE5itRQD1Jh24pN0QDfD4lbyMU5095LeBM"
 CHANNEL_ID = "-1002840644974"
 ADMIN_ID = 1427409581
 WEBHOOK_URL = f"https://stylehub-bot-final.onrender.com/{BOT_TOKEN}"
